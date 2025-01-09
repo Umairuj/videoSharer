@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>{{ video.title }}</h2>
+    <video controls class="w-100">
+        <source src="{{ video.video_url }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <p>{{ video.description }}</p>
+    <p>Uploaded by: {{ video.creator.username }}</p>
+    <p>Tags: {% for tag in video.tags.split(',') %}<span>#{{ tag }}</span>{% endfor %}</p>
+    <hr>
+    <h4>Comments</h4>
+    {% for comment in video.ratings.all %}
+    <div>
+        <p><strong>{{ comment.user.username }}</strong>: {{ comment.comment }}</p>
+        <p>Rating: {{ comment.rating }}/5</p>
+    </div>
+    {% endfor %}
+    <form method="post" action="/video/{{ video.id }}/comment/">
+        {% csrf_token %}
+        <textarea class="form-control" name="comment" rows="3" placeholder="Add a comment..." required></textarea>
+        <button type="submit" class="btn btn-primary mt-2">Post Comment</button>
+    </form>
+</div>
+{% endblock %}

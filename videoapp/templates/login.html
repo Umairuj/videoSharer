@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow-lg" style="width: 100%; max-width: 400px;">
+        <!-- Header with a different background color -->
+        <div class="card-header bg-success text-white text-center">
+            <h4>Login to Your Account</h4>
+        </div>
+        <div class="card-body">
+            <form action="/login/" method="post">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" required placeholder="Enter your email" style="border-color: #6c757d;">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required placeholder="Enter your password" style="border-color: #6c757d;">
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="text-decoration-none" style="color: #28a745;">Forgot password?</a>
+                </div>
+
+                <!-- Button with a different background color -->
+                <button type="submit" class="btn btn-info w-100 mt-3">Login</button>
+            </form>
+        </div>
+
+        <div class="card-footer text-center">
+            <p class="mb-0">Don't have an account? 
+                <!-- Link with a different color -->
+                <a href="{% url 'user-register' %}" class="text-danger">Register here</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}About - VideoSharer{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- About VideoSharer -->
+        <div class="text-center">
+            <h2 class="display-4">About VideoSharer</h2>
+            <p class="lead text-muted mb-4">A platform where creators can upload and share their content with the world. Whether you're into movies, tutorials, or vlogs, VideoSharer has something for everyone!</p>
+            <p class="text-muted mb-4">Our mission is to provide a space for creativity, knowledge, and fun for creators and viewers alike.</p>
+        </div>
+
+        <!-- Our Story Section -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-8 text-center">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h4 class="card-title mb-3">Our Story</h4>
+                        <p class="card-text">Founded by a group of passionate creators, VideoSharer was born out of the desire to have a platform that values both content creators and viewers equally. Over the years, we have grown into a thriving community that fosters creativity and connects people through video content.</p>
+                        <p class="card-text">We started as a small startup but quickly became a hub for diverse content, from how-to tutorials and documentaries to inspiring personal stories and entertainment. Our goal has always been simple – provide the best platform for everyone, whether you're here to watch, share, or engage with creative work.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Core Values Section -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6 text-center">
+                <h4 class="mb-3">Our Core Values</h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Creativity:</strong> A space to express and share your ideas freely.</li>
+                    <li class="list-group-item"><strong>Knowledge:</strong> Learn something new with every video you watch.</li>
+                    <li class="list-group-item"><strong>Community:</strong> Connect with others who share your passion.</li>
+                    <li class="list-group-item"><strong>Fun:</strong> Enjoy every moment while exploring the content.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Meet the Team Section -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8 text-center">
+                <h4 class="mb-4">Meet the Team</h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="/static/images/team1.jpg" class="card-img-top" alt="Team Member 1">
+                            <div class="card-body">
+                                <h5 class="card-title">John Doe</h5>
+                                <p class="card-text">Co-Founder & CEO</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="/static/images/team2.jpg" class="card-img-top" alt="Team Member 2">
+                            <div class="card-body">
+                                <h5 class="card-title">Jane Smith</h5>
+                                <p class="card-text">Chief Technology Officer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="/static/images/team3.jpg" class="card-img-top" alt="Team Member 3">
+                            <div class="card-body">
+                                <h5 class="card-title">Alex Brown</h5>
+                                <p class="card-text">Community Manager</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action Section -->
+        <div class="text-center mt-5">
+            <h4 class="mb-3">Join Our Growing Community!</h4>
+            <p class="text-muted mb-4">Sign up today to upload your videos, connect with creators, and discover new content!</p>
+            <a href="/register/" class="btn btn-primary btn-lg">Join Now</a>
+        </div>
+    </div>
+{% endblock %}

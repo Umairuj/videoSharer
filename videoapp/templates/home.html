@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid py-4 bg-light">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="display-4">Welcome to VideoSharer!</h1>
+            <p class="lead text-muted">Your favorite platform to share and explore amazing videos.</p>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="row g-4">
+        {% for video in videos %}
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="card h-100 shadow-sm hover-shadow rounded-3">
+                <!-- Author Info -->
+                <div class="card-header bg-white border-bottom-0 d-flex align-items-center">
+                    <img src="{{ video.creator.avatar_url|default:'/static/default-avatar.png' }}"
+                         class="rounded-circle me-2"
+                         width="32"
+                         height="32"
+                         alt="{{ video.creator.username }}">
+                    <div>
+                        <h6 class="mb-0">{{ video.creator.username }}</h6>
+                        <small class="text-muted">{{ video.upload_date|date:"M d, Y" }}</small>
+                    </div>
+                </div>
+                <!-- Video Preview (clickable) -->
+                <a href="{% url 'video_feed' video.id %}" class="text-decoration-none">
+                    <div class="ratio ratio-16x9 position-relative video-preview rounded-3 overflow-hidden">
+                        <img src="https://img.youtube.com/vi/{{ video.video_url|slice:'32:43' }}/hqdefault.jpg"
+                             class="w-100 h-100 object-fit-cover" alt="Video Thumbnail">
+                        <div class="video-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                    </div>
+                </a>
+                <div class="card-body">
+                    <a href="{% url 'video_feed' video.id %}" class="text-decoration-none text-dark">
+                        <h5 class="card-title text-truncate">{{ video.title }}</h5>
+                    </a>
+                    <p class="card-text small text-muted">
+                        {{ video.description|truncatewords:15 }}
+                    </p>
+                </div>
+                <!-- Interaction Footer -->
+                <div class="card-footer bg-white border-top-0">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-sm {% if user_liked %}btn-primary{% else %}btn-outline-primary{% endif %} like-btn"
+                                    data-video-id="{{ video.id }}">
+                                <i class="bi bi-heart{% if user_liked %}-fill{% endif %} me-1"></i>
+                                <span class="likes-count">{{ video.likes_count }}</span>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-chat-fill me-1"></i>
+                                <span class="comments-count">{{ video.comments_count }}</span>
+                            </button>
+                        </div>
+                        <a href="{% url 'video_feed' video.id %}" class="btn btn-sm btn-primary">
+                            Watch Full <i class="bi bi-box-arrow-up-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center mt-5">
+        <p class="lead mb-4">Sign in to see personalized video recommendations</p>
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg me-2">Sign In</a>
+        <a href="{% url 'user-register' %}" class="btn btn-outline-primary btn-lg">Register</a>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    }
+    .video-preview {
+        cursor: pointer;
+    }
+    .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+    .video-preview:hover .video-overlay {
+        opacity: 1;
+    }
+    .video-overlay i {
+        font-size: 3rem;
+        color: white;
+    }
+    .card-body {
+        padding: 1.25rem;
+    }
+    .card-title {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+    .card-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+    .card-footer {
+        background: #f8f9fa;
+    }
+</style>
+
+{% block extra_js %}
+<script>
+// Like functionality
+document.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const videoId = this.dataset.videoId;
+        
+        fetch(`/api/videos/${videoId}/like/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Update like count
+            this.querySelector('.likes-count').textContent = data.likes_count;
+            // Toggle button appearance
+            this.classList.toggle('btn-outline-primary');
+            this.classList.toggle('btn-primary');
+            const heartIcon = this.querySelector('i');
+            heartIcon.classList.toggle('bi-heart');
+            heartIcon.classList.toggle('bi-heart-fill');
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+</script>
+{% endblock %}
+
+{% endblock %}

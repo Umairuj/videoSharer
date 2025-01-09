@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block title %}Video Feed - VideoSharer{% endblock %}
+{% block content %}
+{% load custom_filters %}
+
+<div class="container-fluid p-0 bg-dark text-light">
+    <div class="row no-gutters">
+        <!-- Main Video Section -->
+        <div class="col-12 col-lg-8 position-relative">
+            <div id="video-container" class="embed-responsive embed-responsive-16by9" style="height: 50vh;">
+                <iframe
+                    id="main-video"
+                    class="embed-responsive-item w-100 h-100 rounded-lg shadow-lg"
+                    src="{{ videos.0.video_url|replace:'watch?v=,embed/' }}"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            
+            <!-- Video Title and Description -->
+            <div class="p-3">
+                <h2 class="h4 font-weight-bold">{{ videos.0.title }}</h2>
+                <p class="lead small" id="video-description">
+                    {% if videos.0.description|length > 150 %}
+                        {{ videos.0.description|slice:":150" }}...
+                        <a href="#" id="read-more" class="text-primary" onclick="toggleDescription()">Read more</a>
+                        <span id="full-description" style="display:none;">{{ videos.0.description|slice:"150:" }}</span>
+                    {% else %}
+                        {{ videos.0.description }}
+                    {% endif %}
+                </p>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="p-3">
+                <h4 class="h5">Comments</h4>
+                <div id="comments-section" class="border-top pt-3">
+                    <div class="comment mb-3 p-2 bg-dark">
+                        <strong class="text-light">User1:</strong>
+                        <p class="mb-1 text-light-50">This is a great video!</p>
+                    </div>
+                    <div class="comment mb-3 p-2 bg-dark">
+                        <strong class="text-light">User2:</strong>
+                        <p class="mb-1 text-light-50">Really informative, thanks for sharing!</p>
+                    </div>
+                    <form action="#" method="post" class="mt-4">
+                        <textarea class="form-control bg-dark text-light border-secondary mb-3" 
+                                placeholder="Add a comment..." 
+                                rows="3"></textarea>
+                        <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video List Sidebar -->
+        <div class="col-12 col-lg-4">
+            <div class="p-3">
+                <h4 class="h5 mb-3">Other Videos</h4>
+                <div id="video-list" class="row mx-0">
+                    {% for video in videos %}
+                    <div class="col-12 col-sm-6 col-lg-12 mb-3">
+                        <a href="#" class="video-link d-block position-relative text-decoration-none" 
+                           data-video-url="{{ video.video_url }}">
+                            <div class="position-relative">
+                                <img src="https://img.youtube.com/vi/{{ video.video_url|slice:'32:43' }}/hqdefault.jpg"
+                                     class="img-fluid w-100 rounded shadow-sm" 
+                                     alt="Video Thumbnail">
+                                <div class="video-overlay position-absolute bottom-0 left-0 w-100 p-2 bg-gradient-dark">
+                                    <h6 class="mb-0 text-white small">{{ video.title }}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+     @media (max-width: 991.98px) {
+        #video-container {
+            height: 56.25vw; /* Maintain 16:9 aspect ratio */
+        }
+    }
+
+    @media (min-width: 992px) {
+        #video-list {
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+    }
+
+    .bg-gradient-dark {
+        background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    }
+
+    /* Custom scrollbar for video list */
+    #video-list::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #video-list::-webkit-scrollbar-track {
+        background: #343a40;
+    }
+
+    #video-list::-webkit-scrollbar-thumb {
+        background: #6c757d;
+        border-radius: 3px;
+    }
+
+    /* Better dark mode form controls */
+    .form-control:focus {
+        background-color: #2b3035;
+        border-color: #495057;
+        color: #fff;
+    }
+</style>
+
+<script>
+    function toggleDescription() {
+        const description = document.getElementById("full-description");
+        const readMore = document.getElementById("read-more");
+        if (description.style.display === "none") {
+            description.style.display = "inline";
+            readMore.textContent = "Read less";
+        } else {
+            description.style.display = "none";
+            readMore.textContent = "Read more";
+        }
+    }
+</script>
+{% endblock %}
