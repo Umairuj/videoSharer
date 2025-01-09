@@ -1,0 +1,181 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure body takes up full viewport height */
+}
+
+html {
+    height: 100%;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #333;
+    padding: 1rem;
+}
+
+.navbar .navbar-brand {
+    font-weight: bold;
+    color: white;
+}
+
+.navbar .navbar-brand:hover {
+    color: #ff3366;
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: #282c34;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.hero-section .btn {
+    font-size: 1.1rem;
+    padding: 12px 20px;
+    background-color: #ff3366;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hero-section .btn:hover {
+    background-color: #ff4d80;
+}
+
+/* Featured Videos */
+.featured-videos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.featured-videos .video-card {
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.featured-videos .video-card:hover {
+    transform: translateY(-5px);
+}
+
+.video-thumbnail {
+    width: 100%;
+    border-radius: 10px;
+    height: auto;
+}
+
+.video-info {
+    padding: 15px;
+}
+
+.video-info h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.video-info p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Video Stats */
+.video-stats {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: flex-start;
+}
+
+.video-stats button {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.video-stats button:hover {
+    background-color: #ddd;
+    transform: scale(1.05);
+}
+
+/* Categories Sidebar */
+.categories-sidebar {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+}
+
+.categories-sidebar h3 {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.categories-sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.categories-sidebar ul li {
+    padding: 8px 0;
+}
+
+.categories-sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    display: block;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.categories-sidebar ul li a:hover {
+    color: #ff3366;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto; /* Ensure footer stays at the bottom */
+    width: 100%; /* Full width */
+}
+
+
+/* Content Wrapper */
+.content-wrapper {
+    flex: 1; /* Allow content wrapper to take up the available space */
+    padding: 20px;
+    padding-bottom: 100px; /* Ensure content doesn't overlap with footer */
+}
