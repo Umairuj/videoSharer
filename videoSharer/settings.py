@@ -18,6 +18,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://videosharer-instance-gme8cbhtaecufvd0.canadacentral-01.azurewebsites.net'
+]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -28,11 +31,16 @@ SECRET_KEY = 'django-insecure-z0(@ckg_0ky+$!5oo6n$v+#nxb194gg_i0uy)kd@g+_k6t73h*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'videosharer-instance-gme8cbhtaecufvd0.canadacentral-01.azurewebsites.net',
+    '127.0.0.1',  # For local development
+    'localhost'
+]
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',  
-
+    '127.0.0.1',
+    'videosharer-instance-gme8cbhtaecufvd0.canadacentral-01.azurewebsites.net',
 ]
 
 
